@@ -13,21 +13,17 @@ using System.Windows.Shapes;
 namespace DebtBook
 {
     /// <summary>
-    /// Interaction logic for AddDebtorDialog.xaml
+    /// Interaction logic for AddDebtDialog.xaml
     /// </summary>
-    public partial class AddDebtorDialog : Window
+    public partial class AddDebtDialog : Window
     {
-        public AddDebtorDialog()
+        public AddDebtDialog()
         {
             InitializeComponent();
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            int dummy;
-            if(int.TryParse(DialogInitialValue.Text, out dummy)) this.DialogResult = true;
-            else {
-                MessageBox.Show("Initial value must be numeric!");
-            }
+            this.DialogResult = true;
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

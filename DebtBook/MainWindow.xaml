@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:DebtBook"
         mc:Ignorable="d"
         Background="{StaticResource BackgroundColor}"
-        Title="Debt Book" Height="400" Width="400">
+        SizeToContent="WidthAndHeight"
+        Title="Debt Book">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,7 +25,7 @@
                     <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
                 </MenuItem>
             </Menu>
-        <TextBlock Style="{StaticResource HeaderStyle}" Text="Debters" Margin="15,10" VerticalAlignment="Center" Height="auto"/>
+        <TextBlock Style="{StaticResource HeaderStyle}" Text="Debtors" Margin="10,10" VerticalAlignment="Center" Height="auto"/>
         </StackPanel>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -35,7 +36,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="10,10">
-                <DataGrid Width="auto" RowHeaderWidth="0" Height="auto" AutoGenerateColumns="False" ItemsSource="{Binding Path=DebtorList}" IsSynchronizedWithCurrentItem="True" IsReadOnly="True">
+                <DataGrid Name="DebtorGrid" Width="auto" RowHeaderWidth="0" Height="auto" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedDebtor}" ItemsSource="{Binding Path=DebtorList}" IsSynchronizedWithCurrentItem="True" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Name" Width="100" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
@@ -52,10 +53,15 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                        </Style>
+                    </DataGrid.Resources>
                 </DataGrid>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="10,10">
-                <Button Name="AddDebtorButton" Click="AddDebtorButton_Click" Width="auto"  Height="25" Content="Add Debtor"/>
+                <Button Name="AddDebtorButton" Click="AddDebtorButton_Click" Width="100"  Height="25" Content="Add Debtor"/>
             </StackPanel>
         </Grid>
     </Grid>

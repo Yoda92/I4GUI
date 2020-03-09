@@ -5,22 +5,63 @@ using System.Text;
 
 namespace DebtBook
 {
-    public struct Debt
+    public class Debt
     {
-        public Debt(int Debt, DateTime Date)
+        public Debt(int InputValue, DateTime InputDate)
         {
-            _Debt = Debt;
-            _Date = Date;
+            Value = InputValue;
+            Date = InputDate;
         }
-        int _Debt { get; set; }
-        DateTime _Date { get; set; }
+        public Debt() {}
+        int _Value;
+        DateTime _Date;
+        public int Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                _Value = value;
+            }
+        }
+        public DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                _Date = value;
+            }
+        }
+        public string DateOnly
+        {
+            get
+            {
+                return _Date.Date.ToShortDateString();
+            }
+            set{}
+        }
     }
     public class Debtor
     {
-        public List<Debt> DebtList = new List<Debt>();
+        private ObservableCollection<Debt> _DebtList = new ObservableCollection<Debt>();
         string name;
         int balance;
-
+        public ObservableCollection<Debt> DebtList
+        {
+            get
+            {
+                return _DebtList;
+            }
+            set
+            {
+                _DebtList = value;
+            }
+        }
         public string Name
         {
             get
@@ -49,10 +90,10 @@ namespace DebtBook
             Name = null;
             Balance = 0;
         }
-        public Debtor(string _Name)
+        public Debtor(string _Name, int _Balance)
         {
             Name = _Name;
-            Balance = 0;
+            Balance = _Balance;
         }
 
         public void AddDebt(int Debt, DateTime Date)

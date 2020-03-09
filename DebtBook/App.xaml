@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:DebtBook"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="BackgroundColor" Color="Beige" />
+        <SolidColorBrush x:Key="BackgroundColor" Color="Bisque" />
+        <SolidColorBrush x:Key="DialogColor" Color="AntiqueWhite" />
 
         <Style x:Key="HeaderStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="10pt" />
