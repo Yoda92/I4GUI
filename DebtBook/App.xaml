@@ -10,5 +10,10 @@
             <Setter Property="FontSize" Value="10pt" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
+
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
+            <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
+        </Style>
     </Application.Resources>
 </Application>

@@ -5,29 +5,60 @@ using System.Text;
 
 namespace DebtBook
 {
-    class Debtor
+    public struct Debt
     {
-        public struct Debt
+        public Debt(int Debt, DateTime Date)
         {
-            public Debt(int Debt, DateTime Date)
+            _Debt = Debt;
+            _Date = Date;
+        }
+        int _Debt { get; set; }
+        DateTime _Date { get; set; }
+    }
+    public class Debtor
+    {
+        public List<Debt> DebtList = new List<Debt>();
+        string name;
+        int balance;
+
+        public string Name
+        {
+            get
             {
-                _Debt = Debt;
-                _Date = Date;
+                return name;
             }
-            int _Debt { get; set; }
-            DateTime _Date { get; set; }
+            set
+            {
+                name = value;
+            }
         }
 
-        public List<Debt> DebtList = new List<Debt>();
-
+        public int Balance
+        {
+            get
+            {
+                return balance;
+            }
+            set
+            {
+                balance = value;
+            }
+        }
         public Debtor()
         {
+            Name = null;
+            Balance = 0;
+        }
+        public Debtor(string _Name)
+        {
+            Name = _Name;
+            Balance = 0;
         }
 
         public void AddDebt(int Debt, DateTime Date)
         {
-            Debt NewDebt = new Debt(Debt, Date);
-            DebtList.Add(NewDebt);
+            DebtList.Add(new Debt(Debt, Date));
+            Balance += Debt;
         }
     }
 }
