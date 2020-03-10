@@ -69,11 +69,6 @@ namespace DebtBook
         {
             // Create list of debtors
             _DebtorList = new ObservableCollection<Debtor>();
-            Debtor Test = new Debtor("Anders Fisker", 100);
-            Test.AddDebt(500, new DateTime(2000, 10, 10));
-            Test.AddDebt(-200, new DateTime(1992, 01, 01));
-            _DebtorList.Add(Test);
-
 
             // Delegate commands
             ExitCommand = new DelegateCommand(ExitCommandHandler);
