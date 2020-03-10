@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace DebtBook
 {
-    public class Debt
+    public class Debt 
     {
         public Debt(int InputValue, DateTime InputDate)
         {
@@ -15,6 +17,7 @@ namespace DebtBook
         public Debt() {}
         int _Value;
         DateTime _Date;
+
         public int Value
         {
             get
@@ -46,11 +49,18 @@ namespace DebtBook
             set{}
         }
     }
-    public class Debtor
+    public class Debtor : INotifyPropertyChanged
     {
         private ObservableCollection<Debt> _DebtList = new ObservableCollection<Debt>();
         string name;
         int balance;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged([CallerMemberName]string propName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
         public ObservableCollection<Debt> DebtList
         {
             get
@@ -83,6 +93,7 @@ namespace DebtBook
             set
             {
                 balance = value;
+                NotifyPropertyChanged();
             }
         }
         public Debtor()
