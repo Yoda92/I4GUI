@@ -118,6 +118,14 @@ namespace DebtBook
             {
                 SaveAsCommandHandler();
             }
+            else
+            {
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Do you want to save changes?", "Exit", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    SaveCommandHandler();
+                }
+            }
             Environment.Exit(0);
         }
 
