@@ -101,10 +101,10 @@ namespace DebtBook
             Name = null;
             Balance = 0;
         }
-        public Debtor(string _Name, int _Balance)
+        public Debtor(string _Name)
         {
             Name = _Name;
-            Balance = _Balance;
+            Balance = 0;
         }
 
         public void AddDebt(int Debt, DateTime Date)

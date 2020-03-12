@@ -23,11 +23,7 @@ namespace DebtBook
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            int dummy;
-            if(int.TryParse(DialogInitialValue.Text, out dummy)) this.DialogResult = true;
-            else {
-                MessageBox.Show("Initial value must be numeric!");
-            }
+            this.DialogResult = true;
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

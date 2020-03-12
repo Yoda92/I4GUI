@@ -39,8 +39,7 @@ namespace DebtBook
             if (dlg.ShowDialog() == true)
             {
                 string _Name = dlg.DialogName.Text;
-                int _InitialValue = int.Parse(dlg.DialogInitialValue.Text);
-                thisMainWindowViewModel.DebtorList.Add(new Debtor(_Name, _InitialValue));
+                thisMainWindowViewModel.DebtorList.Add(new Debtor(_Name));
             }
         }
 
@@ -52,6 +51,11 @@ namespace DebtBook
             {
                 
             }
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            thisMainWindowViewModel.ExitCommandHandler();
         }
     }
     public class MainWindowViewModel
@@ -108,13 +112,13 @@ namespace DebtBook
                 }
             }
         }
-        void ExitCommandHandler()
+        public void ExitCommandHandler()
         {
             if (CurrentPath == null)
             {
                 SaveAsCommandHandler();
-            }            
-            Application.Current.Shutdown();
+            }
+            Environment.Exit(0);
         }
 
         void SaveCommandHandler()
