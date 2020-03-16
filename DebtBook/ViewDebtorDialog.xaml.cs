@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Prism.Commands;
 
 namespace DebtBook
 {
@@ -23,34 +24,46 @@ namespace DebtBook
             InitializeComponent();
             thisViewDebtorDialogModel = new ViewDebtorDialogModel(ThisDebtor);
             DataContext = thisViewDebtorDialogModel;
-        }
-
-        private void CloseDebtButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-        }
-
-        private void AddDebtButton_Click(object sender, RoutedEventArgs e)
-        {
-            AddDebtDialog dlg = new AddDebtDialog();
-            dlg.Owner = this;
-            if (dlg.ShowDialog() == true)
+            thisViewDebtorDialogModel.RequestAdd += delegate(object sender, EventArgs args)
             {
-                int _Value = int.Parse(dlg.DialogValue.Text);
-                DateTime _Date = (DateTime)dlg.DialogDate.SelectedDate;
-                thisViewDebtorDialogModel.ViewDebtor.AddDebt(_Value, _Date);
-            }
+                AddDebtDialog dlg = new AddDebtDialog();
+                dlg.Owner = this;
+                if (dlg.ShowDialog() == true)
+                {
+                    int _Value = int.Parse(dlg.DialogValue.Text);
+                    DateTime _Date = (DateTime)dlg.DialogDate.SelectedDate;
+                    thisViewDebtorDialogModel.ViewDebtor.AddDebt(_Value, _Date);
+                }
+            };
+            thisViewDebtorDialogModel.RequestClose += delegate (object sender, EventArgs args) { this.DialogResult = false; };
         }
     }
 
     public class ViewDebtorDialogModel
     {
         Debtor _ViewDebtor;
+        public event EventHandler RequestAdd;
+        public event EventHandler RequestClose;
         public ViewDebtorDialogModel(Debtor ThisDebtor)
         {
             ViewDebtor = new Debtor();
             ViewDebtor = ThisDebtor;
+            AddCommand = new DelegateCommand(AddCommandHandler);
+            CloseCommand = new DelegateCommand(CloseCommandHandler);
         }
+
+        public void AddCommandHandler()
+        {
+            RequestAdd(this, EventArgs.Empty);
+        }
+
+        public void CloseCommandHandler()
+        {
+            RequestClose(this, EventArgs.Empty);
+        }
+
+        public ICommand AddCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
         public Debtor ViewDebtor
         {
             get
