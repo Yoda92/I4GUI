@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Prism.Commands;
 
 namespace DebtBook
 {
@@ -17,17 +18,41 @@ namespace DebtBook
     /// </summary>
     public partial class AddDebtorDialog : Window
     {
+        private AddDebtorDialogModel thisAddDebtorDialogModel;
         public AddDebtorDialog()
         {
             InitializeComponent();
+            thisAddDebtorDialogModel = new AddDebtorDialogModel();
+            DataContext = thisAddDebtorDialogModel;
+            thisAddDebtorDialogModel.RequestAdd += delegate (object sender, EventArgs args) { this.DialogResult = true; };
+            thisAddDebtorDialogModel.RequestCancel += delegate (object sender, EventArgs args) { this.DialogResult = false; };
         }
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+    }
+
+    public class AddDebtorDialogModel
+    {
+        public event EventHandler RequestAdd;
+        public event EventHandler RequestCancel;
+        public AddDebtorDialogModel()
         {
-            this.DialogResult = true;
+            AddCommand = new DelegateCommand(AddCommandHandler);
+            CancelCommand = new DelegateCommand(CancelCommandHandler);
         }
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+
+        public void AddCommandHandler()
         {
-            this.DialogResult = false;
+            RequestAdd(this, EventArgs.Empty);
         }
+
+        public void CancelCommandHandler()
+        {
+            RequestCancel(this, EventArgs.Empty);
+        }
+
+        public ICommand AddCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
+
+
+
     }
 }

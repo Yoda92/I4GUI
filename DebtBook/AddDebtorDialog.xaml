@@ -22,8 +22,8 @@
         <StackPanel Grid.Row="0" Grid.Column="1">
             <TextBox Name="DialogName"  Margin="10,10" Height="20" VerticalAlignment="Top"/>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Add" Margin="10,10" Width="100"  Height="25" Name="AddButton" Click="AddButton_Click"/>
-                <Button Content="Cancel" Margin="10,10" Width="100"  Height="25" Name="CancelButton" Click="CancelButton_Click"/>
+                <Button Content="Add" Margin="10,10" Width="100"  Height="25" Name="AddButton" Command="{Binding AddCommand}"/>
+                <Button Content="Cancel" Margin="10,10" Width="100"  Height="25" Name="CancelButton" Command="{Binding CancelCommand}"/>
             </StackPanel>
         </StackPanel>
     </Grid>
